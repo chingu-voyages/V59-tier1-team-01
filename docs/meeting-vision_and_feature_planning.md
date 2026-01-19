@@ -17,14 +17,20 @@ Interview Question Generator
 - Select interview topic
 - Generate interview questions
 - Display questions
+- Check if correct/incorrect
 
 ### Should Have
-- 
-- 
+- Limit the number of tries on missed questions to three attempts (or less)
+- Display a summary of the number of questions answered correctly or incorrectly, along with percentages of the number of correctly and incorrectly answered questions
+- A header containing the name of the app, the current date, and navigation options
+-  A footer that links to the GitHub repo and a list of who is on the team
 
 ### Nice to Have
-- 
-- 
+- A chat icon that will display a popup when clicked to allow the user to ask for help from the AI agent
+- Allow administrators to modify, add, or remove questions
+- Authenticate users via Google or GitHub to increase the security
+- Sharing scores and shared leaderboard
+
 ---
 
 ## Notes / Open Questions
