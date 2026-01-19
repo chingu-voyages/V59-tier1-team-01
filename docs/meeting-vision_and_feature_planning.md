@@ -1,6 +1,6 @@
 # Project Vision & Feature Planning
 - Agenda: App Feature & MVP Planning   
-- Attendees: 
+- Attendees **:Primary Attendees:** Students and job seekers preparing for interviews 
 
 ## Vision Statement
 This app helps Chingus prepare for technical interviews by generating targeted interview questions based on role.
