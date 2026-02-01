@@ -3,13 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <title>Interview Question Generator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Interview Question Generator</h1>
-  <section id="role_selection">
-    <h2>Select a Role:</h2>
-    <div id="roles"></div>
-  </section>
+  <div id="page_container">
+    <h1>Interview Question Generator</h1>
+
+    <div id="home_controls">
+      <button class="role_button">Select Role</button>
+      <button class="tier_button">Select Tier Level</button>
+      <button class="topic_button">Select Topic</button>
+
+      <button class="generate_button">
+        Start Interview<br />
+        or<br />
+        Generate Questions
+      </button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

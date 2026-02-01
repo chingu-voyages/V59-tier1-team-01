@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+#page_container {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+#home_controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+button {
+  width: 280px;
+  padding: 16px;
+  font-size: 16px;
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.role_button {
+  background-color: #FFCD7D;
+}
+
+.tier_button {
+  background-color: #FFEFD5;
+}
+
+.topic_button {
+  background-color: #F8D295;
+}
+
+.generate_button {
+  background-color: #47EB99;
+  font-weight: bold;
+}
