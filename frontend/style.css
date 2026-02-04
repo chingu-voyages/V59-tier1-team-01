@@ -70,7 +70,12 @@ button {
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
-  text-align: left;
+}
+
+.option_item.selected {
+  background-color: #e0f2fe;
+  border-color: #0284c7;
+  font-weight: bold;
 }
 
 .hidden {
