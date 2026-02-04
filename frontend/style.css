@@ -1,0 +1,94 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+#page_container {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+#home_controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+button {
+  width: 280px;
+  padding: 16px;
+  font-size: 16px;
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.role_button {
+  background-color: #FFCD7D;
+}
+
+.tier_button {
+  background-color: #FFEFD5;
+}
+
+.topic_button {
+  background-color: #F8D295;
+}
+
+.generate_button {
+  background-color: #47EB99;
+  font-weight: bold;
+}
+
+#selection_panel {
+  margin-top: 24px;
+  padding: 16px;
+  width: 320px;
+
+  background-color: #f9fafb;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+#selection_summary {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+#panel_options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option_item {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.option_item.selected {
+  background-color: #e0f2fe;
+  border-color: #0284c7;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
