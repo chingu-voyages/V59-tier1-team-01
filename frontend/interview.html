@@ -2,18 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Interview</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Interview Session</title>
+  <link rel="stylesheet" href="interview.css" />
 </head>
 <body>
-  <div id="page_container">
-    <h1>Question 1 of 5</h1>
+  <div id="interview_container">
 
-    <div id="flashcard_area">
-      <div class="flashcard">
-        <p>Flashcard Area</p>
+    <h2 id="question_progress">Question 1 of 5</h2>
+
+    <div id="flashcard">
+
+      <div id="question_text">
+        Which Python data structure is \"immutable\" (meaning it cannot be changed after it is created)?
       </div>
+
+      <div id="options_container">
+        <label class="option_row">
+          <input type="radio" name="answer" value="A" />
+          A) List [1, 2]
+        </label>
+
+        <label class="option_row">
+          <input type="radio" name="answer" value="B" />
+          B) Dictionary {'a': 1}
+        </label>
+
+        <label class="option_row">
+          <input type="radio" name="answer" value="C" />
+          C) Tuple (1, 2)
+        </label>
+
+        <label class="option_row">
+          <input type="radio" name="answer" value="D" />
+          D) Set {1, 2}
+        </label>
+      </div>
+
+      <div id="attempts_text">Attempts left: 2</div>
+
+      <button id="submit_answer">Submit</button>
+
+      <div id="save_question">[Save Question]</div>
+
     </div>
+
+    <div id="bottom_controls">
+      <button class="back_button">Back to Home Page</button>
+      <button class="generate_more_button">Generate More</button>
+      <button class="feedback_button">View Feedback</button>
+    </div>
+
   </div>
 
   <script src="interview.js"></script>
