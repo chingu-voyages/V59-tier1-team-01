@@ -132,6 +132,13 @@ function updateButtonState() {
     !(selectedRole && selectedTier && selectedTopic);
 }
 
+// Move to interview/questions page when everything is selected
+function startInterview() {
+  if (!selectedRole || !selectedTier || !selectedTopic) return;
+
+  window.location.href = "interview.html";
+}
+
 // Run when page has fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   loadFlashcards();
@@ -143,6 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector(".topic_button")
     .addEventListener("click", showTopics);
+
+  document.querySelector(".generate_button")
+    .addEventListener("click", startInterview);
 
   updateSelectionText();
   updateButtonState();
