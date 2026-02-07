@@ -2,18 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Interview</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Interview Session</title>
+  <link rel="stylesheet" href="interview.css" />
 </head>
 <body>
-  <div id="page_container">
-    <h1>Question 1 of 5</h1>
+  <div id="interview_container">
 
-    <div id="flashcard_area">
-      <div class="flashcard">
-        <p>Flashcard Area</p>
-      </div>
+    <h2 id="question_progress">Question 1 of 5</h2>
+
+    <div id="flashcard">
+
+      <div id="question_text"></div>
+
+      <div id="options_container"></div>
+
+      <div id="attempts_text">Attempts left: 2</div>
+
+      <button id="submit_answer">Submit</button>
+
+      <div id="save_question">[Save Question]</div>
+
     </div>
+
+    <div id="bottom_controls">
+      <button class="back_button">Back to Home Page</button>
+      <button class="generate_more_button">Generate More</button>
+      <button class="feedback_button">View Feedback</button>
+    </div>
+
   </div>
 
   <script src="interview.js"></script>

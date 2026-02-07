@@ -136,8 +136,15 @@ function updateButtonState() {
 function startInterview() {
   if (!selectedRole || !selectedTier || !selectedTopic) return;
 
-  window.location.href = "interview.html";
+  const params = new URLSearchParams({
+    role: selectedRole,
+    tier: selectedTier,
+    topic: selectedTopic
+  });
+
+  window.location.href = "interview.html?" + params.toString();
 }
+
 
 // Run when page has fully loaded
 document.addEventListener("DOMContentLoaded", () => {
