@@ -19,6 +19,10 @@ function getSelections() {
   };
 }
 
+function goHome() {
+  window.location.href = "index.html";
+}
+
 // Load JSON file
 async function loadFlashcards() {
   const res = await fetch("flashcards.json");
@@ -138,7 +142,7 @@ function showFinalScore() {
     <p><strong>Percent: ${percent}%</strong></p>
 
     <div style="margin-top:20px;">
-      <button onclick="window.location.href='/'">Back to Home</button>
+      <button onclick="window.location.href='index.html'">Back to Home</button>
     </div>
   `;
 }

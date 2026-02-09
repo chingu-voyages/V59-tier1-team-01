@@ -8,7 +8,7 @@ FRONTEND_PATH = Path(__file__).parent.parent / "frontend"
 
 @app.route("/")
 def index():
-    return send_from_directory(FRONTEND_PATH, "index.html")
+    return send_from_directory(FRONTEND_PATH, "landing.html")
 
 @app.route("/<path:filename>")
 def frontend_files(filename):
