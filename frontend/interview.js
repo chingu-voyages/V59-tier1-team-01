@@ -7,6 +7,9 @@ let correctCount = 0;
 let wrongCount = 0;
 let questionsShown = 0;
 let pendingContinueAction = null;
+let interviewComplete = false;
+let feedbackReturnTo = "interview";
+const answerHistory = [];
 
 const MAX_QUESTIONS = 5;
 
@@ -20,9 +23,31 @@ function getSelections() {
   };
 }
 
-// Navigation function
 function goHome() {
   window.location.href = "index.html";
+}
+
+// Show/hide screens
+function showScreen(screenName) {
+  const interviewScreen = document.getElementById("interview_screen");
+  const resultsScreen = document.getElementById("results_screen");
+  const feedbackScreen = document.getElementById("feedback_screen");
+
+  if (!interviewScreen || !resultsScreen || !feedbackScreen) return;
+
+  interviewScreen.classList.toggle("hidden", screenName !== "interview");
+  resultsScreen.classList.toggle("hidden", screenName !== "results");
+  feedbackScreen.classList.toggle("hidden", screenName !== "feedback");
+}
+
+function updateViewFeedbackButtons() {
+  const enabled = answerHistory.length > 0;
+
+  const viewFeedbackButton = document.getElementById("view_feedback_button");
+  if (viewFeedbackButton) viewFeedbackButton.disabled = !enabled;
+
+  const resultsViewFeedbackButton = document.getElementById("results_view_feedback_button");
+  if (resultsViewFeedbackButton) resultsViewFeedbackButton.disabled = !enabled;
 }
 
 // Feedback message
@@ -59,6 +84,75 @@ function handleContinueClick() {
   const action = pendingContinueAction;
   clearFeedback();
   action();
+}
+
+// Record the final answer
+function recordFinalAnswer(q, chosenLetter, isCorrect) {
+  answerHistory.push({
+    number: questionsShown + 1,
+    question: q.question,
+    chosenLetter,
+    chosenText: q.options?.[chosenLetter] ?? "",
+    correctLetter: q.answer,
+    correctText: q.options?.[q.answer] ?? "",
+    rationale: q.rationale ?? "",
+    isCorrect
+  });
+
+  updateViewFeedbackButtons();
+}
+
+// Render feedback screen with answer history
+function renderFeedbackScreen() {
+  const summary = document.getElementById("feedback_summary");
+  const list = document.getElementById("feedback_list");
+  if (!summary || !list) return;
+
+  const correct = answerHistory.filter(x => x.isCorrect).length;
+  const wrong = answerHistory.length - correct;
+  summary.textContent = `Answered: ${answerHistory.length}. Correct: ${correct}. Wrong: ${wrong}.`;
+
+  if (answerHistory.length === 0) {
+    list.innerHTML = "<p>No answers yet.</p>";
+    return;
+  }
+
+  list.innerHTML = answerHistory
+    .map(item => {
+      const badgeClass = item.isCorrect ? "correct" : "wrong";
+      const badgeText = item.isCorrect ? "Correct" : "Wrong";
+      const chosenLine = `Your answer: ${item.chosenLetter}) ${item.chosenText}`;
+      const correctLine = `Correct answer: ${item.correctLetter}) ${item.correctText}`;
+      const explanation = item.rationale ? `Explanation:\n${item.rationale}` : "";
+
+      return `
+        <div class="feedback_item">
+          <div class="feedback_item_header">
+            <span class="feedback_badge ${badgeClass}">${badgeText}</span>
+            <span>Question ${item.number}</span>
+          </div>
+          <div class="feedback_q">${item.question}</div>
+          <p class="feedback_kv">${chosenLine}</p>
+          <p class="feedback_kv">${correctLine}</p>
+          ${explanation ? `<p class="feedback_kv">${explanation}</p>` : ""}
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function showFeedbackScreen(returnTo) {
+  feedbackReturnTo = returnTo;
+  renderFeedbackScreen();
+  showScreen("feedback");
+}
+
+function handleFeedbackBack() {
+  if (feedbackReturnTo === "results") {
+    showScreen("results");
+    return;
+  }
+  showScreen("interview");
 }
 
 // Show feedback message
@@ -103,6 +197,7 @@ function showQuestion() {
   if (!currentQuestions.length) return;
 
   const q = currentQuestions[currentIndex];
+  showScreen("interview");
   clearFeedback();
   document.getElementById("submit_answer").disabled = false;
 
@@ -167,17 +262,19 @@ function submitAnswer() {
 
   if (chosen === q.answer) {
     correctCount++;
+    recordFinalAnswer(q, chosen, true);
     showFeedback("Correct", q.rationale, "success", nextQuestion);
   } else {
     attemptsLeft--;
+    document.getElementById("attempts_text").textContent =
+      `Attempts left: ${attemptsLeft}`;
 
     if (attemptsLeft <= 0) {
       wrongCount++;
+      recordFinalAnswer(q, chosen, false);
       const message = `Correct answer: ${q.answer}\n\n${q.rationale}`;
       showFeedback("Out of attempts", message, "error", nextQuestion);
     } else {
-      document.getElementById("attempts_text").textContent =
-        `Attempts left: ${attemptsLeft}`;
       showFeedback("Not quite", `Try again. Attempts left: ${attemptsLeft}.`, "error");
     }
   }
@@ -185,23 +282,23 @@ function submitAnswer() {
 
 // Show final score screen
 function showFinalScore() {
-  const container = document.getElementById("interview_container");
-
   const percent = Math.round((correctCount / MAX_QUESTIONS) * 100);
+  interviewComplete = true;
 
-  container.innerHTML = `
-    <h2>Interview Complete</h2>
-    <h3>Results:</h3>
+  const resultsCorrect = document.getElementById("results_correct");
+  const resultsWrong = document.getElementById("results_wrong");
+  const resultsTotal = document.getElementById("results_total");
+  const resultsPercent = document.getElementById("results_percent");
 
-    <p>Correct: ${correctCount}</p>
-    <p>Wrong: ${wrongCount}</p>
-    <p>Total: ${MAX_QUESTIONS}</p>
-    <p><strong>Percent: ${percent}%</strong></p>
+  if (resultsCorrect) resultsCorrect.textContent = String(correctCount);
+  if (resultsWrong) resultsWrong.textContent = String(wrongCount);
+  if (resultsTotal) resultsTotal.textContent = String(MAX_QUESTIONS);
+  if (resultsPercent) resultsPercent.textContent = String(percent);
 
-    <div style="margin-top:20px;">
-      <button onclick="window.location.href='index.html'">Back to Home</button>
-    </div>
-  `;
+  setContinueAction(null);
+  showScreen("results");
+
+  updateViewFeedbackButtons();
 }
 
 // Run when page has fully loaded
@@ -227,4 +324,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   document
     .getElementById("continue_button")
     .addEventListener("click", handleContinueClick);
+
+  document
+    .getElementById("view_feedback_button")
+    .addEventListener("click", () => showFeedbackScreen("interview"));
+
+  document
+    .getElementById("results_view_feedback_button")
+    .addEventListener("click", () => showFeedbackScreen("results"));
+
+  document
+    .getElementById("results_home_button")
+    .addEventListener("click", goHome);
+
+  document
+    .getElementById("feedback_home_button")
+    .addEventListener("click", goHome);
+
+  document
+    .getElementById("feedback_back_button")
+    .addEventListener("click", handleFeedbackBack);
+
+  updateViewFeedbackButtons();
 });

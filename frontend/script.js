@@ -6,8 +6,6 @@ let selectedRole = null;
 let selectedTier = null;
 let selectedTopic = null;
 
-
-
 // load flashcards from JSON file and log to console
 async function loadFlashcards() {
   const res = await fetch("flashcards.json");

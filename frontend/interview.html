@@ -8,27 +8,55 @@
 <body>
   <div id="interview_container">
 
-    <h2 id="question_progress">Question 1 of 5</h2>
+    <div id="interview_screen">
+      <h2 id="question_progress">Question 1 of 5</h2>
 
-    <div id="flashcard">
+      <div id="flashcard">
 
-      <div id="question_text"></div>
+        <div id="question_text"></div>
 
-      <div id="options_container"></div>
+        <div id="options_container"></div>
 
-      <div id="attempts_text">Attempts left: 2</div>
+        <div id="attempts_text">Attempts left: 2</div>
 
-      <button id="submit_answer">Submit</button>
-      <div id="answer_feedback" class="answer_feedback hidden" aria-live="polite"></div>
+        <button id="submit_answer">Submit</button>
+        <div id="answer_feedback" class="answer_feedback hidden" aria-live="polite"></div>
 
-      <div id="save_question">[Save Question]</div>
+        <div id="save_question">[Save Question]</div>
 
+      </div>
+
+      <div id="bottom_controls">
+        <button class="back_button">Back to Home Page</button>
+        <button class="continue_button" id="continue_button" disabled>Continue</button>
+        <button class="feedback_button" id="view_feedback_button" disabled>View Feedback</button>
+      </div>
     </div>
 
-    <div id="bottom_controls">
-      <button class="back_button">Back to Home Page</button>
-      <button class="continue_button" id="continue_button" disabled>Continue</button>
-      <button class="feedback_button">View Feedback</button>
+    <div id="results_screen" class="hidden">
+      <h2>Interview Complete</h2>
+      <h3>Results:</h3>
+
+      <p>Correct: <strong id="results_correct">0</strong></p>
+      <p>Wrong: <strong id="results_wrong">0</strong></p>
+      <p>Total: <strong id="results_total">0</strong></p>
+      <p><strong>Percent: <span id="results_percent">0</span>%</strong></p>
+
+      <div style="margin-top:20px;">
+        <button class="back_button" id="results_home_button">Back to Home</button>
+        <button class="feedback_button" id="results_view_feedback_button" disabled>View Feedback</button>
+      </div>
+    </div>
+
+    <div id="feedback_screen" class="hidden">
+      <h2>Feedback</h2>
+      <p id="feedback_summary"></p>
+      <div id="feedback_list"></div>
+
+      <div style="margin-top:20px;">
+        <button class="feedback_button" id="feedback_back_button">Back</button>
+        <button class="back_button" id="feedback_home_button">Back to Home</button>
+      </div>
     </div>
 
   </div>
